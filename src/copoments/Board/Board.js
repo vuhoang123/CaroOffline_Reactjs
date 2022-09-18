@@ -9,8 +9,8 @@ class Board extends React.Component {
     this.state = {
       squares: Array(900).fill(null),
       xIsNext: true,
-      prevID: "",
-      win: "",
+      prevID: '',
+      win: '',
     };
   }
   /**
@@ -20,7 +20,7 @@ class Board extends React.Component {
    */
   handleClick(i) {
     // console.log(!this.state.win && this.props.startGame)
-    if (!this.state.win && this.props.startGame) {
+    if(!this.state.win && this.props.startGame){
       const squares = this.state.squares.slice();
       if (squares[i] === null) {
         squares[i] = this.state.xIsNext ? "X" : "O";
@@ -28,7 +28,7 @@ class Board extends React.Component {
       this.setState({
         squares: squares,
         xIsNext: !this.state.xIsNext,
-        prevID: i,
+        prevID: i
       });
     }
   }
@@ -37,30 +37,30 @@ class Board extends React.Component {
    *input: ArrSquare, preID
    *out: update status  if win  and StopGame
    */
-  componentDidUpdate(prevProps) {
-    if (this.state.squares !== prevProps.squares && this.state.win === "") {
+  componentDidUpdate(prevProps){
+    if(this.state.squares !== prevProps.squares && this.state.win === ''){
       if (this.calculateWinner(this.state.squares, this.state.prevID)) {
         // console.log("You win");
-        this.props.stopGame(this.state.squares[this.state.prevID]);
+        this.props.stopGame(this.state.squares[this.state.prevID])
         this.setState({
-          win: this.state.squares[this.state.prevID],
-        });
+          win: this.state.squares[this.state.prevID]
+        })
       }
     }
-    if (this.props.resetGame !== prevProps.resetGame) {
-      this.setState({
-        squares: Array(900).fill(null),
-        xIsNext: true,
-        prevID: "",
-        win: "",
-      });
+    if(this.props.resetGame !== prevProps.resetGame) {
+        this.setState({
+          squares: Array(900).fill(null),
+          xIsNext: true,
+          prevID: '',
+          win: '',
+        })
     }
   }
-  /**
+  /** 
    * Render 1 square
    * input: id: 1
-   * output: 1 square
-   */
+   * output: 1 square 
+  */
   renderSquare = (i) => {
     return (
       <Square
@@ -70,11 +70,11 @@ class Board extends React.Component {
       />
     );
   };
-  /**
+  /** 
    * render row : 30 squares
    * input: n row;
    * output: n x 30 squares
-   */
+  */
   renderRow = (n) => {
     let rowsSquare = [];
     for (let i = n; i < 30 + n; i++) {
@@ -82,11 +82,11 @@ class Board extends React.Component {
     }
     return rowsSquare;
   };
-  /**
+  /** 
    * render board : n square
    * input: n ;
    * output: n squares
-   */
+  */
   renderBoard = (n) => {
     let arrBoard = [];
     for (let i = 0; i < n; i += 30) {
@@ -94,15 +94,15 @@ class Board extends React.Component {
     }
     return arrBoard;
   };
-  /**
-   * function: calculateWinner
-   * input: arr square, number: index
-   * output: boolean true
-   */
+/**
+ * function: calculateWinner
+ * input: arr square, number: index
+ * output: boolean true
+ */
   calculateWinner = (squares, index) => {
-    // creat arr need to check
+    // creat arr need to check 
     const lines = [
-      // row
+      // row 
       [
         index - 4,
         index - 3,
@@ -114,7 +114,7 @@ class Board extends React.Component {
         index + 3,
         index + 4,
       ],
-      // cols
+      // cols 
       [
         index - 120,
         index - 90,
@@ -125,7 +125,7 @@ class Board extends React.Component {
         index + 60,
         index + 90,
         index + 120,
-      ],
+      ],    
       // cross
       [
         index - 120 - 4,
@@ -151,7 +151,7 @@ class Board extends React.Component {
         index - 120 + 4,
       ],
     ];
-    // check in arr  1 -5; 2-6 ; 3-7 ; 4-8 ; 5 - 9
+  // check in arr  1 -5; 2-6 ; 3-7 ; 4-8 ; 5 - 9
     // const result = [];
     for (let i = 0; i < 5; i += 1) {
       const [a, b, c, d, e] = [
@@ -162,9 +162,9 @@ class Board extends React.Component {
         lines[0][i + 4],
       ];
       const checkRow = this.checkRim([a, b, c, d]);
-      /**
-       * TH1: rows
-       */
+    /**
+     * TH1: rows
+     */
       if (
         squares[a] &&
         squares[a] === squares[b] &&
@@ -184,9 +184,9 @@ class Board extends React.Component {
         // return result;
         return true;
       }
-      /**
-       * TH2: cols
-       */
+    /**
+     * TH2: cols
+     */
       const [aa, bb, cc, dd, ee] = [
         lines[1][i],
         lines[1][i + 1],
@@ -211,6 +211,7 @@ class Board extends React.Component {
         // result.push([aa, bb, cc, dd, ee]);
         // return result;
         return true;
+
       }
       /**
        * TH3: cross
@@ -239,9 +240,9 @@ class Board extends React.Component {
         // result.push(squares[aaa]);
         // result.push([aaa, bbb, ccc, ddd, eee]);
         // return result;
-        return true;
+        return true
       }
-
+  
       const [aaaa, bbbb, cccc, dddd, eeee] = [
         lines[3][i],
         lines[3][i + 1],
@@ -266,11 +267,11 @@ class Board extends React.Component {
         // result.push(squares[aaaa]);
         // result.push([aaaa, bbbb, cccc, dddd, eeee]);
         // return result;
-        return true;
+        return true
       }
     }
     return null;
-  };
+  }
   /**
    * check touch border
    */
@@ -281,8 +282,9 @@ class Board extends React.Component {
     if (arr[3] % 10 === 9 && Math.floor(arr[3] / 10) % 2 === 1) return false;
     return true;
   };
-  // render
+  // render 
 
+  
   render() {
     return <div className="Board-game">{this.renderBoard(900)}</div>;
   }

@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  width: 1020px;
+  margin: 0 auto;
 }
 
 body {
@@ -7,8 +9,7 @@ body {
   margin: 20px;
 }
 
-ol,
-ul {
+ol, ul {
   padding-left: 30px;
 }
 
@@ -40,8 +41,4 @@ ul {
 .game {
   display: flex;
   flex-direction: row;
-}
-
-.player__item {
-  width: inherit !important;
 }
